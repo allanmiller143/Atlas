@@ -1,0 +1,53 @@
+// Copie esta pasta para src/techniques/<id>/ e renomeie este arquivo para index.ts.
+// O registry encontra automaticamente qualquer pasta com index.ts.
+import type { ReadyTechnique } from '../../core/types.ts'
+
+const technique: ReadyTechnique = {
+  id: 'meu-id',
+  name: 'Nome da técnica',
+  // Navegação: área macro > conceito > família de modelos.
+  hierarchy: { area: 'Aprendizado de máquina', concept: 'Conceito principal', family: 'Família do modelo' },
+  // Comparação é independente da navegação: uma técnica pode participar de vários grupos.
+  compareGroups: ['Classificação'],
+  summary: 'Uma frase curta que explica o que ela faz, sem jargão.',
+  status: 'ready',
+  supervised: true,
+  traits: {
+    learning: ['supervised'],
+    output: ['category'],
+    data: ['table'],
+    explainability: 2,
+    minData: 'small',
+  },
+  params: [
+    {
+      key: 'strength',
+      label: 'Intensidade',
+      kind: 'range',
+      min: 1,
+      max: 10,
+      step: 1,
+      default: 5,
+      help: 'Explique em linguagem simples o que acontece quando este valor aumenta.',
+    },
+  ],
+  fit(data, params) {
+    // Troque esta função pela lógica da técnica.
+    // predict recebe coordenadas entre 0 e 1 e devolve o índice da classe.
+    const threshold = Number(params.strength) / 10
+    return {
+      predict(x, y) {
+        return x * threshold + y * (1 - threshold) > 0.5 ? 1 : 0
+      },
+      stats: [{ label: 'Pontos analisados', value: String(data.points.length) }],
+    }
+  },
+  explain: {
+    what: 'Explique a ideia central com uma analogia ou exemplo cotidiano.',
+    use: ['Situação em que essa técnica costuma ser útil.'],
+    avoid: ['Situação em que ela pode não ser uma boa escolha.'],
+  },
+  searchTerms: 'Nome da técnica inteligência artificial',
+}
+
+export default technique
