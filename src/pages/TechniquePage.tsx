@@ -22,6 +22,7 @@ import DecisionTreeLesson from '../features/decision-tree/DecisionTreeLesson.tsx
 import DecisionTreeFruitLab from '../features/decision-tree/DecisionTreeFruitLab.tsx'
 import DecisionTreeTradeoffs from '../features/decision-tree/DecisionTreeTradeoffs.tsx'
 import RandomForestLesson from '../features/random-forest/RandomForestLesson.tsx'
+import GradientBoostingLesson from '../features/gradient-boosting/GradientBoostingLesson.tsx'
 import CodeNotebook from '../components/learning/CodeNotebook.tsx'
 import { decisionTreePythonCells } from '../features/decision-tree/pythonCells.ts'
 import ParameterGuide from '../components/ParameterGuide.tsx'
@@ -76,10 +77,27 @@ function RandomForestPage({t}:{t:ReadyTechnique}){
  </Stack>
 }
 
+/** Página individual do Gradient Boosting; aula, cálculos e notebook ficam em sua própria pasta. */
+function GradientBoostingPage({t}:{t:ReadyTechnique}){
+ const [note,setNote]=useNote(t.id)
+ return <Stack spacing={3} sx={{width:'100%',maxWidth:1160,mx:'auto',minWidth:0,pb:6}}>
+  <Button component={RouterLink} to="/tecnica/random-forest" startIcon={<ArrowBackRoundedIcon/>} sx={{alignSelf:'flex-start'}}>Relembrar Random Forest</Button>
+  <Box><Typography variant="overline" color="primary.main" fontWeight={850}>APRENDIZADO SUPERVISIONADO · ENSEMBLES DE ÁRVORES</Typography>
+   <Typography variant="h1" sx={{fontSize:{xs:'2.5rem',md:'3.5rem'},mt:.5}}>Gradient Boosting</Typography>
+   <Typography sx={{fontSize:18,lineHeight:1.8,mt:1,maxWidth:860}}>E se, em vez de perguntar a várias árvores separadas o que elas acham, criássemos uma árvore de cada vez — e pedíssemos à próxima que melhorasse o resultado acumulado? Essa é a ideia central do Gradient Boosting.</Typography>
+   <Stack direction="row" gap={1} flexWrap="wrap" sx={{mt:2}}><Chip label="Aprendizado supervisionado" size="small"/><Chip label="Classificação (exemplo)" size="small"/><Chip label="Árvores em sequência" size="small"/></Stack>
+  </Box>
+  <Box sx={{maxWidth:810,borderLeft:'3px solid',borderColor:'primary.main',pl:2.5,py:.8}}><Typography fontWeight={850} sx={{fontSize:18,mb:1}}>Em outras palavras</Typography><Typography sx={{lineHeight:1.8}}>O modelo começa com um palpite. Depois, uma árvore faz um pequeno ajuste nesse palpite. Outra árvore observa o que ainda precisa melhorar e faz mais um ajuste. As correções se somam até formar uma previsão.</Typography><Typography sx={{fontSize:14,lineHeight:1.7,color:'text.secondary',mt:1}}>Na classificação real, isso acontece sobre uma pontuação interna, associada à probabilidade, não por uma votação de rótulos.</Typography></Box>
+  <GradientBoostingLesson/>
+  <Box component="section" sx={{borderTop:'1px solid',borderColor:'divider',pt:4}}><Typography component="h2" sx={{fontSize:24,fontWeight:850,mb:2}}>Suas anotações</Typography><TextField multiline minRows={4} fullWidth value={note} onChange={(e:ChangeEvent<HTMLInputElement|HTMLTextAreaElement>)=>setNote(e.target.value)} placeholder="O que cada árvore acrescenta à pontuação acumulada?"/><Typography fontSize={12} color="text.secondary" mt={1}>Salvas neste navegador.</Typography></Box>
+ </Stack>
+}
+
 /** Registro das páginas especiais: adicionar uma técnica não exige novos ifs no roteador.
  * Conteúdo, animações e laboratórios continuam em features/<id>/;
  * páginas ainda não especializadas usam a visualização genérica existente. */
 const TECHNIQUE_PAGE_REGISTRY: Record<string, React.ComponentType<{t:ReadyTechnique}>> = {
   'arvore-de-decisao': TechniqueView,
   'random-forest': RandomForestPage,
+  'gradient-boosting': GradientBoostingPage,
 }

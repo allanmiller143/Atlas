@@ -32,11 +32,11 @@ function Navigation({close}:{close:()=>void}){
   return <Box key={node.id}>
    <Box sx={{display:'flex',alignItems:'center',pl:`${Math.min(level,4)*8}px`}}>
     {hasChildren?<IconButton size="small" onClick={()=>toggle(node.id)} aria-label={`${open?'Recolher':'Expandir'} ${node.name}`} aria-expanded={open} sx={{width:27,height:27,flexShrink:0}}>{open?<ExpandMoreRoundedIcon sx={{fontSize:18}}/>:<ChevronRightRoundedIcon sx={{fontSize:18}}/>}</IconButton>:<Box sx={{width:27,flexShrink:0}}/>}
-    <ListItemButton component={RouterLink} to={`/conceito/${node.id}`} selected={isActive} onClick={close} sx={{...itemSx,flex:1,minWidth:0}}><ListItemText primary={node.name} primaryTypographyProps={{fontSize:level===0?14:13.2,fontWeight:isActive?850:level===0?750:500,lineHeight:1.4}}/></ListItemButton>
+    <ListItemButton component={RouterLink} to={`/conceito/${node.id}`} selected={isActive} onClick={close} sx={{...itemSx,flex:1,minWidth:0}}><ListItemText primary={node.name} primaryTypographyProps={{fontSize:level===0?14:13.2,fontWeight:isActive?850:level===0?750:500,lineHeight:1.4,sx:{overflowWrap:'anywhere'}}}/></ListItemButton>
    </Box>
    {hasChildren&&<Collapse in={open} unmountOnExit><Box sx={{borderLeft:'1px solid #DFE6F0',ml:`${14+Math.min(level,4)*8}px`}}>
     {children.map(child=>tree(child,level+1))}
-    {techniques.map(t=><Box key={t.id} sx={{pl:`${Math.min(level+1,4)*8}px`,display:'flex',alignItems:'center'}}><Box sx={{width:27,flexShrink:0}}/><ListItemButton component={RouterLink} to={`/tecnica/${t.id}`} selected={location.pathname===`/tecnica/${t.id}`} sx={itemSx} onClick={close}><ListItemText primary={t.name} primaryTypographyProps={{fontSize:13,whiteSpace:'normal',fontWeight:location.pathname===`/tecnica/${t.id}`?850:500}}/></ListItemButton></Box>)}
+    {techniques.map(t=><Box key={t.id} sx={{pl:`${Math.min(level+1,4)*8}px`,display:'flex',alignItems:'center'}}><Box sx={{width:27,flexShrink:0}}/><ListItemButton component={RouterLink} to={`/tecnica/${t.id}`} selected={location.pathname===`/tecnica/${t.id}`} sx={itemSx} onClick={close}><ListItemText primary={t.name} primaryTypographyProps={{fontSize:13,whiteSpace:'normal',sx:{overflowWrap:'anywhere'},fontWeight:location.pathname===`/tecnica/${t.id}`?850:500}}/></ListItemButton></Box>)}
    </Box></Collapse>}
   </Box>
  }
