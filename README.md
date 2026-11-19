@@ -108,3 +108,10 @@ A página `Aprendizado de máquina` compara supervisionado e não supervisionado
 A tela de **Decision Tree** foi separada em `src/features/decision-tree/` (veja o README dessa pasta): aula, laboratório, dados, prós/contras e células Python. O componente de notebook visual fica em `src/components/learning/CodeNotebook.tsx` e pode ser reutilizado por qualquer outra técnica passando um array de células. Para editar somente o conteúdo de Python da Decision Tree, abra `src/features/decision-tree/pythonCells.ts`; para editar apenas as frutas, abra `fruitExamples.ts`.
 
 O notebook é **visual, não um interpretador Python**: os botões copiam código para um ambiente como Google Colab. Atualmente `TechniquePage.tsx` ainda referencia explicitamente os componentes específicos de Decision Tree; uma futura extensão poderá adotar um registro de páginas próprias por técnica.
+
+
+## Página de modelos baseados em árvores
+
+A navegação de **Aprendizado de máquina → Aprendizado supervisionado → Modelos baseados em árvores** reúne Decision Tree, Random Forest, Gradient Boosting, XGBoost e AdaBoost. As técnicas mantêm pastas e aulas independentes.
+
+A introdução dessa família fica em `src/features/tree-models/TreeModelsChapter.tsx`. Para editar a comparação de uso, altere `src/components/TreeFamilyGuide.tsx`. Para inserir uma técnica nova nessa família, use `hierarchy.family: 'Modelos baseados em árvores'` no cadastro da técnica (ou em `src/techniques/planned.ts` para conteúdos em preparação).

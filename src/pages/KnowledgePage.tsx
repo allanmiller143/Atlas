@@ -1,10 +1,10 @@
-import { Link as RouterLink, useParams } from 'react-router-dom'
+import { Link as RouterLink, Navigate, useParams } from 'react-router-dom'
 import { Accordion, AccordionDetails, AccordionSummary, Alert, Box, Breadcrumbs, Button, Chip, Divider, Link, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded'
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
 import AutoStoriesOutlinedIcon from '@mui/icons-material/AutoStoriesOutlined'
-import { ancestorsOf, childrenOf, knowledgeById } from '../core/knowledge.ts'
+import { ancestorsOf, childrenOf, knowledgeById, knowledgeId } from '../core/knowledge.ts'
 import { advancedExamples } from '../core/advancedExamples.ts'
 import { chapterAround, easyLessons, nodeNamed, relevantTechniques, shortIntroductions, studyChapters, techniquePlainLanguage } from '../core/studyGuide.ts'
 import FruitJourney from '../components/FruitJourney.tsx'
@@ -12,6 +12,7 @@ import FoundationsChapters from '../features/foundations/FoundationsChapters.tsx
 import SupervisedJourney from '../components/SupervisedJourney.tsx'
 import SupervisedComparison from '../components/SupervisedComparison.tsx'
 import { TreeFamilyGuide } from '../components/TreeFamilyGuide.tsx'
+import TreeModelsChapter from '../features/tree-models/TreeModelsChapter.tsx'
 import LearningDemo from '../components/LearningDemo.tsx'
 import type { Technique } from '../core/types.ts'
 
@@ -120,9 +121,11 @@ function Advanced({nodeName}:{nodeName:string}){
 export default function KnowledgePage(){
  const {id}=useParams()
  const node=knowledgeById(id)
+ if(!node && id === knowledgeId('family','Ensembles de árvores','Aprendizado de máquina/Aprendizado supervisionado'))return <Navigate to={`/conceito/${knowledgeId('family','Modelos baseados em árvores','Aprendizado de máquina/Aprendizado supervisionado')}`} replace/>
  if(!node)return <Alert severity="warning">Assunto não encontrado. <Link component={RouterLink} to="/biblioteca">Abrir índice</Link></Alert>
  const foundationPage = node.name==='Aprendizado de máquina'?'ml':node.name==='Aprendizado supervisionado'?'supervised':node.name==='Aprendizado não supervisionado'?'unsupervised':null
  if(foundationPage)return <FoundationsChapters key={node.id} mode={foundationPage}/>
+ if(node.name==='Modelos baseados em árvores')return <TreeModelsChapter key={node.id}/>
  const guide=easyLessons[node.name]
  const short=shortIntroductions[node.name]
  const techniques=relevantTechniques(node)
@@ -158,7 +161,7 @@ export default function KnowledgePage(){
      {subtopics.length>0&&<Box sx={{mt:3}}><Typography sx={heading}>O que está dentro deste assunto?</Typography>{subtopics.map(child=><Box key={child.id} component={RouterLink} to={`/conceito/${child.id}`} sx={{display:'flex',alignItems:'center',justifyContent:'space-between',py:2.2,borderTop:'1px solid',borderColor:'divider',color:'text.primary',textDecoration:'none','&:hover':{color:'primary.main'}}}><Typography fontWeight={750}>{child.name}</Typography><ArrowForwardRoundedIcon fontSize="small"/></Box>)}</Box>}
     </Box>}
     {node.name==='Aprendizado supervisionado'&&<><Section id="classificacao-regressao" kicker="DOIS TIPOS DE RESPOSTA" title="Classificação ou regressão: qual é a diferença?"><Typography sx={readable}>No mesmo aprendizado supervisionado podemos pedir duas coisas diferentes. Se a resposta é um <strong>nome</strong>, como maçã ou laranja, fazemos classificação. Se a resposta é um <strong>número</strong>, como o peso estimado de uma fruta, fazemos regressão. O algoritmo aprende com exemplos que têm a resposta correta nos dois casos.</Typography><Box sx={{overflowX:'auto',mt:2}}><Table size="small"><TableHead><TableRow><TableCell sx={{fontWeight:850}}>Pergunta</TableCell><TableCell sx={{fontWeight:850}}>Classificação</TableCell><TableCell sx={{fontWeight:850}}>Regressão</TableCell></TableRow></TableHead><TableBody>{[['O que prever?','Uma categoria','Um número'],['Exemplo','É maçã ou laranja?','Quanto pesa a fruta?'],['Como avaliar?','Comparar classes previstas e reais','Medir a distância entre números previstos e reais']].map(r=><TableRow key={r[0]}>{r.map((v,i)=><TableCell key={i} sx={{fontWeight:i===0?750:400}}>{v}</TableCell>)}</TableRow>)}</TableBody></Table></Box></Section><SupervisedComparison/></>}
-    {['Modelos baseados em árvores','Ensembles de árvores'].includes(node.name)&&<TreeFamilyGuide/>}
+    {node.name==='Modelos baseados em árvores'&&<TreeFamilyGuide/>}
     <Section id="modelos" kicker="DO CONCEITO PARA OS ALGORITMOS" title="E quais técnicas usam essas ideias?">
      <Typography sx={readable}>{isMachineLearning?'Agora você já sabe que não existe um algoritmo chamado “aprendizado de máquina”. Cada técnica abaixo é uma maneira diferente de aprender ou encontrar padrões. Você pode abrir qualquer uma diretamente.':`Estas são técnicas relacionadas a ${node.name.toLowerCase()}. Clique em uma para entender a ideia e, quando houver laboratório disponível, testar com dados.`}</Typography>
      {techniques.length>0?<><TechniqueLinks items={techniques}/><Typography component="h3" sx={{fontSize:21,fontWeight:850,mt:4}}>Comparação rápida, em linguagem simples</Typography><Typography color="text.secondary" sx={{lineHeight:1.75,mt:1}}>Veja como alguns modelos se diferenciam antes de escolher qual estudar.</Typography><CompareModels techniques={techniques}/></>:<Typography sx={readable}>Ainda não há modelos cadastrados nesta seção.</Typography>}

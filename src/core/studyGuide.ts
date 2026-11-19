@@ -28,8 +28,8 @@ export function relevantTechniques(node: KnowledgeNode): Technique[] {
     case 'Aprendizado supervisionado': return ALL.filter(t => t.traits.learning.includes('supervised'))
     case 'Aprendizado não supervisionado': return ALL.filter(t => t.traits.learning.includes('unsupervised'))
     case 'Redes neurais': return ALL.filter(t => t.hierarchy.concept === 'Redes neurais' || t.compareGroups.includes('Redes neurais'))
-    case 'Modelos baseados em árvores': case 'Ensembles de árvores':
-      return ALL.filter(t => t.compareGroups.includes('Modelos baseados em árvores') || t.hierarchy.family === 'Ensembles de árvores')
+    case 'Modelos baseados em árvores':
+      return ALL.filter(t => t.hierarchy.family === 'Modelos baseados em árvores')
     case 'Agrupamento': return ALL.filter(t => t.compareGroups.includes('Agrupamento'))
     default:
       return ALL.filter(t => t.hierarchy.family === node.name || t.hierarchy.concept === node.name || t.hierarchy.area === node.name)

@@ -21,9 +21,9 @@ const hierarchy: Record<string, { area: string; concept: string; family: string;
   knn: { area: 'Aprendizado de máquina', concept: 'Aprendizado supervisionado', family: 'Métodos baseados em exemplos', compare: ['Classificação'] },
   svm: { area: 'Aprendizado de máquina', concept: 'Aprendizado supervisionado', family: 'Métodos de margem', compare: ['Classificação'] },
   'naive-bayes': { area: 'Aprendizado de máquina', concept: 'Aprendizado supervisionado', family: 'Modelos probabilísticos', compare: ['Classificação'] },
-  'gradient-boosting': { area: 'Aprendizado de máquina', concept: 'Aprendizado supervisionado', family: 'Ensembles de árvores', compare: ['Classificação', 'Modelos baseados em árvores'] },
-  xgboost: { area: 'Aprendizado de máquina', concept: 'Aprendizado supervisionado', family: 'Ensembles de árvores', compare: ['Classificação', 'Modelos baseados em árvores'] },
-  adaboost: { area: 'Aprendizado de máquina', concept: 'Aprendizado supervisionado', family: 'Ensembles de árvores', compare: ['Classificação', 'Modelos baseados em árvores'] },
+  'gradient-boosting': { area: 'Aprendizado de máquina', concept: 'Aprendizado supervisionado', family: 'Modelos baseados em árvores', compare: ['Classificação', 'Modelos baseados em árvores'] },
+  xgboost: { area: 'Aprendizado de máquina', concept: 'Aprendizado supervisionado', family: 'Modelos baseados em árvores', compare: ['Classificação', 'Modelos baseados em árvores'] },
+  adaboost: { area: 'Aprendizado de máquina', concept: 'Aprendizado supervisionado', family: 'Modelos baseados em árvores', compare: ['Classificação', 'Modelos baseados em árvores'] },
   dbscan: { area: 'Aprendizado de máquina', concept: 'Aprendizado não supervisionado', family: 'Agrupamento', compare: ['Agrupamento'] },
   som: { area: 'Aprendizado de máquina', concept: 'Redes neurais', family: 'Mapas auto-organizáveis', compare: ['Agrupamento', 'Redes neurais'] },
   pca: { area: 'Aprendizado de máquina', concept: 'Aprendizado não supervisionado', family: 'Redução de dimensionalidade', compare: ['Redução de dimensionalidade'] },
@@ -54,8 +54,8 @@ export const PLANNED: PlannedTechnique[] = [
   p('gradient-boosting', 'Gradient boosting', 'Árvores', 'Árvores pequenas em sequência, cada uma corrigindo o erro da anterior.', {
     learning: ['supervised'], output: ['category', 'number'], data: ['table'], explainability: 2, minData: 'small',
   }),
-  p('xgboost', 'XGBoost', 'Ensembles de árvores', 'Gradient boosting com otimizações e regularização, muito usado em dados tabulares.', { learning: ['supervised'], output: ['category', 'number'], data: ['table'], explainability: 2, minData: 'small' }),
-  p('adaboost', 'AdaBoost', 'Ensembles de árvores', 'Combina classificadores simples, dando mais peso a exemplos difíceis em cada rodada.', { learning: ['supervised'], output: ['category'], data: ['table'], explainability: 2, minData: 'small' }),
+  p('xgboost', 'XGBoost', 'Modelos baseados em árvores', 'Gradient boosting com otimizações e regularização, muito usado em dados tabulares.', { learning: ['supervised'], output: ['category', 'number'], data: ['table'], explainability: 2, minData: 'small' }),
+  p('adaboost', 'AdaBoost', 'Modelos baseados em árvores', 'Combina classificadores simples, dando mais peso a exemplos difíceis em cada rodada.', { learning: ['supervised'], output: ['category'], data: ['table'], explainability: 2, minData: 'small' }),
   p('dbscan', 'DBSCAN', 'Agrupamento', 'Agrupa pontos vizinhos densos e marca o resto como ruído.', {
     learning: ['unsupervised'], output: ['groups'], data: ['table'], explainability: 2, minData: 'small',
   }),

@@ -36,7 +36,7 @@ function fitBoost(points:Point[],rounds:number,rate:number){
 }
 const technique: ReadyTechnique={
  status:'ready',id:'gradient-boosting',name:'Gradient Boosting',
- hierarchy:{area:'Aprendizado de máquina',concept:'Aprendizado supervisionado',family:'Ensembles de árvores'},
+ hierarchy:{area:'Aprendizado de máquina',concept:'Aprendizado supervisionado',family:'Modelos baseados em árvores'},
  compareGroups:['Classificação','Modelos baseados em árvores'],
  summary:'Constrói árvores em sequência: cada nova árvore aprende uma correção para a previsão acumulada.',
  supervised:true,

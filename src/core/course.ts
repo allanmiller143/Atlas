@@ -1,6 +1,6 @@
 import { KNOWLEDGE, knowledgeById, type KnowledgeNode } from './knowledge.ts'
 
-const priority = ['Aprendizado de máquina','Aprendizado supervisionado','Aprendizado não supervisionado','Redes neurais','Árvores de decisão','Agrupamento','Modelos lineares','Ensembles de árvores','Perceptrons multicamadas']
+const priority = ['Aprendizado de máquina','Aprendizado supervisionado','Aprendizado não supervisionado','Redes neurais','Modelos baseados em árvores','Agrupamento','Modelos lineares','Perceptrons multicamadas']
 export const ordered = (nodes: KnowledgeNode[]) => [...nodes].sort((a,b) => {
  const ia=priority.indexOf(a.name),ib=priority.indexOf(b.name)
  if(ia>=0||ib>=0) return (ia<0?999:ia)-(ib<0?999:ib)

@@ -42,7 +42,7 @@ export default function Home(){
    <Box sx={{display:'grid',gridTemplateColumns:{xs:'1fr',md:'1fr 1fr'},columnGap:6}}>
     {studyChapters.map((node,i)=><Box key={node.id} component={RouterLink} to={`/conceito/${node.id}`} sx={{borderTop:'1px solid',borderColor:'divider',display:'flex',alignItems:'start',gap:2,py:2.5,color:'text.primary',textDecoration:'none','&:hover':{color:'primary.main'}}}>
      <Typography sx={{fontSize:12,color:'primary.main',fontWeight:850,pt:.5}}>{String(i+1).padStart(2,'0')}</Typography>
-     <Box sx={{flex:1}}><Typography fontWeight={850} sx={{fontSize:18}}>{node.name==='Modelos baseados em árvores'?'Árvores de decisão':node.name}</Typography><Typography sx={{color:'text.secondary',fontSize:14,lineHeight:1.7,mt:.4}}>{easyLessons[node.name]?.subtitle??node.description}</Typography></Box>
+     <Box sx={{flex:1}}><Typography fontWeight={850} sx={{fontSize:18}}>{node.name}</Typography><Typography sx={{color:'text.secondary',fontSize:14,lineHeight:1.7,mt:.4}}>{easyLessons[node.name]?.subtitle??node.description}</Typography></Box>
      <ArrowForwardRoundedIcon fontSize="small"/>
     </Box>)}
    </Box>
