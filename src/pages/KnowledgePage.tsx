@@ -13,6 +13,7 @@ import SupervisedJourney from '../components/SupervisedJourney.tsx'
 import SupervisedComparison from '../components/SupervisedComparison.tsx'
 import { TreeFamilyGuide } from '../components/TreeFamilyGuide.tsx'
 import TreeModelsChapter from '../features/tree-models/TreeModelsChapter.tsx'
+import NeuralNetworksChapter from '../features/neural-networks/NeuralNetworksChapter.tsx'
 import LearningDemo from '../components/LearningDemo.tsx'
 import type { Technique } from '../core/types.ts'
 
@@ -126,6 +127,7 @@ export default function KnowledgePage(){
  const foundationPage = node.name==='Aprendizado de máquina'?'ml':node.name==='Aprendizado supervisionado'?'supervised':node.name==='Aprendizado não supervisionado'?'unsupervised':null
  if(foundationPage)return <FoundationsChapters key={node.id} mode={foundationPage}/>
  if(node.name==='Modelos baseados em árvores')return <TreeModelsChapter key={node.id}/>
+ if(node.name==='Redes neurais')return <NeuralNetworksChapter key={node.id}/>
  const guide=easyLessons[node.name]
  const short=shortIntroductions[node.name]
  const techniques=relevantTechniques(node)

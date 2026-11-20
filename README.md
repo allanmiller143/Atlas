@@ -115,3 +115,7 @@ O notebook é **visual, não um interpretador Python**: os botões copiam códig
 A navegação de **Aprendizado de máquina → Aprendizado supervisionado → Modelos baseados em árvores** reúne Decision Tree, Random Forest, Gradient Boosting, XGBoost e AdaBoost. As técnicas mantêm pastas e aulas independentes.
 
 A introdução dessa família fica em `src/features/tree-models/TreeModelsChapter.tsx`. Para editar a comparação de uso, altere `src/components/TreeFamilyGuide.tsx`. Para inserir uma técnica nova nessa família, use `hierarchy.family: 'Modelos baseados em árvores'` no cadastro da técnica (ou em `src/techniques/planned.ts` para conteúdos em preparação).
+
+## Nova aula: XGBoost
+
+A aula especial de XGBoost está em `src/features/xgboost/`. Ela usa a estrutura editorial das técnicas existentes, oito etapas progressivas, uma maçã esverdeada para seguir o caminho das árvores, matemática opcional e um laboratório com parâmetros calculados (`n_estimators`, `learning_rate`, `max_depth`, `gamma`, `reg_lambda`). O notebook usa o pacote oficial `xgboost` e pode ser copiado para o Colab.

@@ -7,6 +7,7 @@ import RestartAltRoundedIcon from '@mui/icons-material/RestartAltRounded'
 import { TreeFamilyGuide } from '../../components/TreeFamilyGuide.tsx'
 import { nodeNamed } from '../../core/studyGuide.ts'
 import { trainingFruits } from '../decision-tree/fruitExamples.ts'
+import { grow, TreeDiagram } from '../decision-tree/DecisionTreeFruitLab.tsx'
 
 type Fruit = { name: string; color: string; skin: string; answer: 'Maçã' | 'Laranja' }
 const examples: Fruit[] = [
@@ -85,17 +86,43 @@ export default function TreeModelsChapter(){
    <Typography color="primary.main" fontWeight={850} fontSize={12} letterSpacing=".08em" sx={{mb:1.5}}>AS PEÇAS DA ÁRVORE</Typography>
    <Typography component="h2" sx={{fontSize:{xs:26,md:34},fontWeight:850,letterSpacing:'-.04em',mb:2}}>Raiz, nó, ramo e folha: o que significa cada um?</Typography>
    <Typography sx={{...typography,mb:3}}>Pense na árvore como um pequeno mapa de decisões. Cada parte tem um papel. A figura abaixo usa <strong>a mesma árvore</strong> que vamos construir na aula, para você reconhecer as partes sem trocar de exemplo.</Typography>
-   <Box sx={{display:'grid',gridTemplateColumns:{xs:'1fr',md:'minmax(0,1.3fr) minmax(240px,.7fr)'},gap:3,alignItems:'start'}}>
-    <Diagram stage={3} fruit={fruit}/>
-    <Stack gap={2}>
-     {[
-      ['Raiz','É o primeiro nó, no topo da árvore. Aqui, a pergunta inicial é “Casca lisa?”.'],
-      ['Nó de decisão','É uma caixa que faz uma pergunta. Uma árvore pode ter vários nós internos.'],
-      ['Ramo','É uma linha que conecta duas caixas. O ramo indica qual caminho seguir para SIM ou NÃO.'],
-      ['Folha','É o fim de um caminho. Neste exemplo de classificação, a folha apresenta a classe prevista: maçã ou laranja.'],
-     ].map(([name,desc])=><Box key={name} sx={{borderBottom:'1px solid #E3E8F0',pb:1.5}}><Typography fontWeight={850} sx={{mb:.4}}>{name}</Typography><Typography color="text.secondary" fontSize={14} lineHeight={1.65}>{desc}</Typography></Box>)}
-    </Stack>
+   <Box sx={{mb:2}}><Typography fontSize={14.5} lineHeight={1.75} color="text.secondary">As linhas retas apontam para as partes da árvore e terminam em legendas alinhadas à direita. O desenho usa as mesmas cores, nós e folhas das aulas individuais.</Typography></Box>
+   <Box sx={{width:'100%',overflowX:'auto',p:{xs:1,md:2},bgcolor:'#FAFCFF',border:'1px solid #DCE5EF',borderRadius:1}}>
+    <svg role="img" aria-label="Anatomia da árvore: linhas horizontais indicam raiz, nó de decisão, ramo e folha com as legendas à direita" viewBox="0 0 940 420" style={{display:'block',width:'100%',height:'auto'}}>
+     <defs><marker id="anatomyArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#4F77A8"/></marker></defs>
+     <g fill="none" stroke="#A4B6CD" strokeWidth="2.4" strokeLinejoin="round">
+      <path d="M280 78 V112 H146 V162"/><path d="M280 112 H450 V162"/>
+      <path d="M450 218 V253 H363 V307"/><path d="M450 253 H539 V307"/>
+     </g>
+     <g fontSize="12" fill="#355F8B" fontWeight="800" textAnchor="middle">
+      <rect x="188" y="103" width="46" height="24" rx="6" fill="#fff" stroke="#DEE7F2"/><text x="211" y="119">SIM</text>
+      <rect x="344" y="103" width="48" height="24" rx="6" fill="#fff" stroke="#DEE7F2"/><text x="368" y="119">NÃO</text>
+      <rect x="369" y="244" width="46" height="24" rx="6" fill="#fff" stroke="#DEE7F2"/><text x="392" y="260">SIM</text>
+      <rect x="480" y="244" width="50" height="24" rx="6" fill="#fff" stroke="#DEE7F2"/><text x="505" y="260">NÃO</text>
+     </g>
+     <g fontWeight="800" textAnchor="middle" fill="#263D59">
+      <rect x="194" y="20" width="172" height="58" rx="10" fill="#E9F2FF" stroke="#83A9D7" strokeWidth="1.8"/><text x="280" y="55" fontSize="16">Casca lisa?</text>
+      <rect x="62" y="162" width="168" height="56" rx="10" fill="#FCEFF0" stroke="#D8A1A7" strokeWidth="1.8"/><text x="146" y="195" fontSize="16">Maçã</text>
+      <rect x="359" y="162" width="182" height="56" rx="10" fill="#E9F2FF" stroke="#83A9D7" strokeWidth="1.8"/><text x="450" y="195" fontSize="16">Cor vermelha?</text>
+      <rect x="295" y="307" width="136" height="56" rx="10" fill="#FCEFF0" stroke="#D8A1A7" strokeWidth="1.8"/><text x="363" y="340" fontSize="16">Maçã</text>
+      <rect x="471" y="307" width="136" height="56" rx="10" fill="#FFF4E5" stroke="#E4BD86" strokeWidth="1.8"/><text x="539" y="340" fontSize="16">Laranja</text>
+     </g>
+     <g stroke="#4F77A8" strokeWidth="2" fill="none" markerEnd="url(#anatomyArrow)">
+      <path d="M374 49 H654"/>
+      <path d="M549 191 H654"/>
+      <path d="M536 256 H654"/>
+      <path d="M611 336 H654"/>
+     </g>
+     <g fontWeight="850" fontSize="16" fill="#365F92"><text x="671" y="55">RAIZ</text><text x="671" y="197">NÓ INTERNO</text><text x="671" y="262">RAMO</text><text x="671" y="342">FOLHA</text></g>
+     <g fontSize="12" fill="#64748B"><text x="671" y="72">Primeira pergunta</text><text x="671" y="214">Outra pergunta</text><text x="671" y="279">Caminho SIM / NÃO</text><text x="671" y="359">Resposta do caminho</text></g>
+    </svg>
    </Box>
+   <Box sx={{display:'grid',gridTemplateColumns:{xs:'1fr',sm:'1fr 1fr'},gap:2,mt:3}}>{[
+      ['Raiz','Primeira pergunta, no topo da árvore. Ela inicia o caminho.'],
+      ['Nó de decisão','Uma pergunta que decide por qual ramo continuar.'],
+      ['Ramo','A ligação que seguimos quando a resposta é SIM ou NÃO.'],
+      ['Folha','O fim de um caminho. Na classificação, apresenta uma classe prevista.'],
+     ].map(([name,desc])=><Box key={name} sx={{borderTop:'1px solid #E3E8F0',pt:1.5}}><Typography fontWeight={850} sx={{mb:.4}}>{name}</Typography><Typography color="text.secondary" fontSize={14} lineHeight={1.65}>{desc}</Typography></Box>)}</Box>
    <Typography sx={{fontSize:14,color:'text.secondary',mt:2}}>Uma folha também pode conter um valor numérico, por exemplo numa árvore usada para regressão. Aqui estamos mostrando um caso simples de classificação.</Typography>
   </Box>
 
@@ -109,7 +136,7 @@ export default function TreeModelsChapter(){
     <Typography component="h3" fontSize={{xs:21,sm:25}} fontWeight={850} sx={{mb:1}}>{lesson[step].title}</Typography>
     <Typography sx={{fontSize:16,lineHeight:1.8,mb:3,maxWidth:790}}>{lesson[step].body}</Typography>
     {step===0&&<Box sx={{display:'grid',gridTemplateColumns:{xs:'repeat(2,minmax(0,1fr))',sm:'repeat(4,minmax(0,1fr))'},gap:1.3,mb:2}}>{trainingFruits.slice(0,8).map(f=><Box key={f.id} sx={{border:'1px solid #DDE5F0',bgcolor:'#F8FAFD',p:1.5,borderRadius:1.5}}><Typography fontSize={13} fontWeight={800}>{f.label}</Typography><Typography fontSize={12} color="text.secondary">{f.color} · {f.skin}</Typography></Box>)}</Box>}
-    <Diagram stage={step} fruit={fruit}/>
+    {step===0?<Diagram stage={0} fruit={fruit}/>:<TreeDiagram tree={grow(trainingFruits,0,step<=2?1:2,2)} compact focus={step===4?trainingFruits.find(f=>f.color.toLowerCase()===fruit.color&&f.skin.toLowerCase()===fruit.skin):undefined}/>}
     {step===4&&<Box sx={{mt:2}}><Typography fontSize={14} fontWeight={800} sx={{mb:1}}>Escolha uma fruta para percorrer os ramos</Typography><Stack direction="row" flexWrap="wrap" gap={1}>{examples.map((f,i)=><Button key={f.name} onClick={()=>setFruitIndex(i)} variant={i===fruitIndex?'contained':'outlined'} size="small" sx={{textTransform:'none',borderRadius:1.5,whiteSpace:'normal',textAlign:'left'}}>{f.name}</Button>)}</Stack><Typography sx={{mt:2,fontWeight:750,fontSize:15}}>Previsão ao chegar à folha: {fruit.answer}.</Typography></Box>}
     <Box sx={{borderLeft:'3px solid #5F88C6',bgcolor:'#F4F7FC',p:2,mt:3,mb:3}}><Typography fontSize={12} fontWeight={850} color="primary.main" letterSpacing=".05em">O QUE OBSERVAR</Typography><Typography fontSize={14} lineHeight={1.7} sx={{mt:.5}}>{lesson[step].watch}</Typography></Box>
     <Stack direction="row" alignItems="center" justifyContent="space-between" gap={1} flexWrap="wrap"><Button startIcon={<ArrowBackRoundedIcon/>} disabled={step===0} onClick={()=>setStep(s=>Math.max(0,s-1))} sx={{textTransform:'none'}}>Anterior</Button><Stack direction="row" gap={1}><Button startIcon={<RestartAltRoundedIcon/>} onClick={()=>{setStep(0);setFruitIndex(0)}} sx={{textTransform:'none'}}>Recomeçar</Button><Button variant="contained" endIcon={<ArrowForwardRoundedIcon/>} disabled={step===lesson.length-1} onClick={()=>setStep(s=>Math.min(lesson.length-1,s+1))} sx={{textTransform:'none'}}>Próximo</Button></Stack></Stack>

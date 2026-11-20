@@ -25,9 +25,8 @@ const lessons=[
 function LabelTag({label}:{label:Label}){return <Chip size="small" label={label} sx={{fontWeight:750,color:label==='Maçã'?apple:orange,bgcolor:label==='Maçã'?'#FAE7E9':'#FFF0D5'}}/>}
 function FruitChip({fruit,showLabel=true,small=false}:{fruit:Fruit;showLabel?:boolean;small?:boolean}){
  return <Box sx={{border:'1px solid #DFE6EF',bgcolor:'#FFF',px:small?1:1.4,py:small?.75:1.2,minWidth:small?94:122,flex:'0 0 auto',borderRadius:1}}>
-  <Stack direction="row" gap={.6} alignItems="center"><Box sx={{width:12,height:12,borderRadius:'50%',bgcolor:fruit.color==='Vermelha'?'#D56169':fruit.color==='Esverdeada'?'#83B073':fruit.color==='Alaranjada'?'#E3A353':'#E8C466',border:'1px solid #B9A99B'}}/><Typography fontSize={small?11:12} fontWeight={750}>#{fruit.id} {fruit.color.toLowerCase()}</Typography></Stack>
-  <Typography fontSize={11} color="text.secondary" mt={.25}>{fruit.skin.toLowerCase()}</Typography>
-  {showLabel?<Typography fontSize={11} mt={.55} fontWeight={850} color={fruit.label==='Maçã'?apple:orange}>{fruit.label}</Typography>:<Typography fontSize={11} mt={.55} color="text.secondary">Resposta oculta</Typography>}
+  <Stack direction="row" gap={.6} alignItems="center"><Box sx={{width:12,height:12,borderRadius:'50%',bgcolor:fruit.color==='Vermelha'?'#D56169':fruit.color==='Esverdeada'?'#83B073':fruit.color==='Alaranjada'?'#E3A353':'#E8C466',border:'1px solid #B9A99B'}}/><Typography fontSize={small?11:12} fontWeight={750}>{showLabel?fruit.label:'Resposta reservada'} · #{fruit.id}</Typography></Stack>
+  <Typography fontSize={11} color="text.secondary" mt={.25}>Cor {fruit.color.toLowerCase()} · casca {fruit.skin.toLowerCase()}</Typography>
  </Box>
 }
 function TreeSketch({root,focus,small=false}:{root:Branch;focus?:Fruit;small?:boolean}){

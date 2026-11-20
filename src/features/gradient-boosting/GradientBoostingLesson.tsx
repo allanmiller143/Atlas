@@ -13,6 +13,7 @@ import type { Fruit, BoostNode, BoostModel } from './boostingModel.ts'
 import { explainRootCandidates, trainBoosting } from './boostingModel.ts'
 import CodeNotebook from '../../components/learning/CodeNotebook.tsx'
 import { gradientBoostingPythonCells } from './pythonCells.ts'
+import BoostingComparison from '../tree-models/BoostingComparison.tsx'
 
 const blue='#3672B7',ink='#2B405A'
 const techniqueLinkSx={fontWeight:800,color:'primary.main',textDecoration:'underline',textUnderlineOffset:'3px'}
@@ -41,7 +42,7 @@ const fruitColor=(f:Fruit)=>f.color==='Vermelha'?'#D76A71':f.color==='Esverdeada
 function FeatureFruit({f,hideAnswer=false}:{f:Fruit;hideAnswer?:boolean}){
  return <Stack direction="row" alignItems="center" gap={1} sx={{border:'1px solid #DFE6EF',bgcolor:'white',p:1.15,minWidth:0}}>
   <Box sx={{width:16,height:16,borderRadius:'50%',bgcolor:fruitColor(f),border:'1px solid #AAB7C7',flexShrink:0}}/>
-  <Box sx={{minWidth:0}}><Typography fontWeight={800} fontSize={12}>#{f.id} · {f.color.toLowerCase()}</Typography><Typography fontSize={12} color="text.secondary">Casca {f.skin.toLowerCase()} · {hideAnswer?'resposta guardada':f.label}</Typography></Box>
+  <Box sx={{minWidth:0}}><Typography fontWeight={800} fontSize={12}>{hideAnswer?'Resposta reservada':f.label} · #{f.id}</Typography><Typography fontSize={12} color="text.secondary">Cor {f.color.toLowerCase()} · casca {f.skin.toLowerCase()}</Typography></Box>
  </Stack>
 }
 function FruitGrid({fruits,hideAnswer=false}:{fruits:Fruit[];hideAnswer?:boolean}){
@@ -265,6 +266,7 @@ export default function GradientBoostingLesson(){
   ].map(([s,label,why])=><TableRow key={s}><TableCell sx={{fontWeight:750}}>{s}</TableCell><TableCell><Chip label={label} size="small" component={label==='Prefira Decision Tree'?RouterLink:'span'} to={label==='Prefira Decision Tree'?'/tecnica/arvore-de-decisao':undefined} clickable={label==='Prefira Decision Tree'} color={label==='Boa escolha'?'success':label==='Cuidado'?'error':label==='Prefira Decision Tree'?'warning':'default'}/></TableCell><TableCell sx={{lineHeight:1.75}}>{why}</TableCell></TableRow>)}</TableBody></Table></Box>
   <Box sx={{borderLeft:'3px solid #8FAED2',pl:2.5,mt:3}}><Typography fontWeight={850}>Três jeitos de usar árvores</Typography><Typography sx={{lineHeight:1.8,mt:.5}}><Box component={RouterLink} to="/tecnica/arvore-de-decisao" sx={techniqueLinkSx}>Decision Tree</Box> aprende uma única árvore. <Box component={RouterLink} to="/tecnica/random-forest" sx={techniqueLinkSx}>Random Forest</Box> treina várias árvores em paralelo e agrega suas previsões. <strong>Gradient Boosting</strong> adiciona árvores em sequência, cada uma corrigindo a pontuação acumulada. Não existe um vencedor universal: compare o desempenho com dados reservados.</Typography><Stack direction="row" flexWrap="wrap" gap={1} mt={1}><Button component={RouterLink} to="/tecnica/arvore-de-decisao" size="small">Rever Decision Tree</Button><Button component={RouterLink} to="/tecnica/random-forest" size="small">Rever Random Forest</Button></Stack></Box>
  </Box>
+ <BoostingComparison current="gradient-boosting"/>
  <CodeNotebook cells={gradientBoostingPythonCells}/>
  </Stack>
 }

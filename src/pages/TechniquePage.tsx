@@ -23,6 +23,8 @@ import DecisionTreeFruitLab from '../features/decision-tree/DecisionTreeFruitLab
 import DecisionTreeTradeoffs from '../features/decision-tree/DecisionTreeTradeoffs.tsx'
 import RandomForestLesson from '../features/random-forest/RandomForestLesson.tsx'
 import GradientBoostingLesson from '../features/gradient-boosting/GradientBoostingLesson.tsx'
+import AdaBoostLesson from '../features/adaboost/AdaBoostLesson.tsx'
+import XGBoostLesson from '../features/xgboost/XGBoostLesson.tsx'
 import CodeNotebook from '../components/learning/CodeNotebook.tsx'
 import { decisionTreePythonCells } from '../features/decision-tree/pythonCells.ts'
 import ParameterGuide from '../components/ParameterGuide.tsx'
@@ -93,6 +95,10 @@ function GradientBoostingPage({t}:{t:ReadyTechnique}){
  </Stack>
 }
 
+function AdaBoostPage(){const [note,setNote]=useNote('adaboost');return <Stack spacing={3} sx={{width:'100%',maxWidth:1160,mx:'auto',minWidth:0,pb:6}}><Button component={RouterLink} to="/conceito/family-aprendizado-de-maquina-aprendizado-supervisionado-modelos-baseados-em-arvores" startIcon={<ArrowBackRoundedIcon/>} sx={{alignSelf:'flex-start'}}>Rever modelos baseados em árvores</Button><Box><Typography variant="overline" color="primary.main" fontWeight={800}>APRENDIZADO SUPERVISIONADO · MODELOS BASEADOS EM ÁRVORES</Typography><Typography variant="h1" sx={{fontSize:{xs:'2.5rem',md:'3.5rem'},mt:.5}}>AdaBoost</Typography><Typography sx={{color:'text.secondary',lineHeight:1.75,maxWidth:800,mt:1,fontSize:'1.08rem'}}>Uma sequência de classificadores simples que aprende a prestar mais atenção nos exemplos difíceis e combina as respostas com pesos diferentes.</Typography></Box><AdaBoostLesson/><Box component="section" sx={{borderTop:'1px solid',borderColor:'divider',pt:4}}><Typography component="h2" sx={{fontWeight:850,fontSize:24,mb:2}}>Suas anotações</Typography><TextField multiline minRows={4} fullWidth value={note} onChange={e=>setNote(e.target.value)} placeholder="Qual fruta recebeu mais importância depois do primeiro erro?"/><Typography fontSize={12} color="text.secondary" mt={1}>Salvas neste navegador.</Typography></Box></Stack>}
+
+function XGBoostPage(){const [note,setNote]=useNote('xgboost');return <Stack spacing={3} sx={{width:'100%',maxWidth:1160,mx:'auto',minWidth:0,pb:6}}><Button component={RouterLink} to="/conceito/family-aprendizado-de-maquina-aprendizado-supervisionado-modelos-baseados-em-arvores" startIcon={<ArrowBackRoundedIcon/>} sx={{alignSelf:'flex-start'}}>Rever modelos baseados em árvores</Button><Box><Typography variant="overline" color="primary.main" fontWeight={800}>APRENDIZADO SUPERVISIONADO · MODELOS BASEADOS EM ÁRVORES</Typography><Typography variant="h1" sx={{fontSize:{xs:'2.5rem',md:'3.5rem'},mt:.5}}>XGBoost</Typography><Typography sx={{color:'text.secondary',lineHeight:1.75,maxWidth:850,mt:1,fontSize:'1.08rem'}}>Uma sequência de árvores pequenas que ajustam uma previsão. O XGBoost avalia se cada divisão realmente compensa e controla a intensidade das correções.</Typography><Stack direction="row" gap={1} flexWrap="wrap" mt={2}><Chip label="Aprendizado supervisionado" size="small"/><Chip label="Classificação no exemplo" size="small"/><Chip label="Árvores em sequência" size="small"/></Stack></Box><Box sx={{maxWidth:790,borderLeft:'3px solid',borderColor:'primary.main',pl:2.5,py:.8}}><Typography fontWeight={850} sx={{fontSize:18,mb:1}}>Em outras palavras</Typography><Typography sx={{lineHeight:1.8}}>O XGBoost começa com um palpite e vai somando pequenas correções feitas por árvores. Antes de crescer um novo ramo, ele verifica se aquela pergunta ajuda o suficiente para valer a complexidade extra.</Typography></Box><XGBoostLesson/><Box component="section" sx={{borderTop:'1px solid',borderColor:'divider',pt:4}}><Typography component="h2" sx={{fontWeight:850,fontSize:24,mb:2}}>Suas anotações</Typography><TextField multiline minRows={4} fullWidth value={note} onChange={e=>setNote(e.target.value)} placeholder="Por que uma divisão pode não valer a pena?"/><Typography fontSize={12} color="text.secondary" mt={1}>Salvas neste navegador.</Typography></Box></Stack>}
+
 /** Registro das páginas especiais: adicionar uma técnica não exige novos ifs no roteador.
  * Conteúdo, animações e laboratórios continuam em features/<id>/;
  * páginas ainda não especializadas usam a visualização genérica existente. */
@@ -100,4 +106,6 @@ const TECHNIQUE_PAGE_REGISTRY: Record<string, React.ComponentType<{t:ReadyTechni
   'arvore-de-decisao': TechniqueView,
   'random-forest': RandomForestPage,
   'gradient-boosting': GradientBoostingPage,
+  'adaboost': AdaBoostPage,
+  'xgboost': XGBoostPage,
 }

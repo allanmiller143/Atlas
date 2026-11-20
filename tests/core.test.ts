@@ -152,3 +152,17 @@ test('exemplo de frutas mantém cores coerentes e treino/teste separados', async
   assert.equal(rough.filter(x => x.label === 'Maçã').length, 1)
   assert.equal(rough.filter(x => x.label === 'Laranja').length, 3)
 })
+
+test('XGBoost: a laranja de teste começa favorecendo maçã e muda após a primeira árvore', async () => {
+  const { trainXgb } = await import('../src/features/xgboost/xgbModel.ts')
+  const model = trainXgb({ n_estimators: 4, learning_rate: 0.5, max_depth: 2, gamma: 0, reg_lambda: 1 })
+  assert.equal(model.train.length, 8)
+  assert.deepEqual(model.test.map(x => x.id), [9, 10])
+  const orange = model.test.find(x => x.id === 10)!
+  assert.equal(orange.label, 'Laranja')
+  assert.equal(orange.color, 'Alaranjada')
+  assert.ok(model.initialP > 0.5)
+  assert.ok(model.predict(orange, 1).probability < 0.5)
+  assert.ok(model.predict(orange, 4).probability < model.predict(orange, 1).probability)
+  assert.equal(model.predict(orange, 4).label, 'Laranja')
+})
